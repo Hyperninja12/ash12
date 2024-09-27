@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- Google Sign-In Client ID -->
+    <meta name="google-signin-client_id" content="430021994168-8mamprv1nn09kctb4shevf9ef9s1469b.apps.googleusercontent.com">
+    <!-- Google Sign-In JavaScript -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        function handleCredentialResponse(response) {
+            // Decode the ID token
+            const data = JSON.parse(atob(response.credential.split('.')[1]));
+            console.log("User ID: " + data.sub);
+            console.log("User Full Name: " + data.name);
+            console.log("User Email: " + data.email);
+
+            // Redirect to home page after successful login
+            window.location.href = "https://hyperninja12.github.io/Ash_Porfolio/index.html";
+        }
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: '430021994168-8mamprv1nn09kctb4shevf9ef9s1469b.apps.googleusercontent.com',
+                callback: handleCredentialResponse
+            });
+            google.accounts.id.renderButton(
+                document.getElementById("google-signin-button"),
+                { theme: "outline", size: "large" }  // Customize the button
+            );
+        }
+    </script>
+</head>
+<body>
+    <div id="google-signin-button"></div>
+</body>
+</html>
